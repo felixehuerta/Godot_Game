@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://b36i8cr34hhco"]
+
+[ext_resource type="PackedScene" uid="uid://y20ldelhd8yu" path="res://src/Scenes/Player.tscn" id="1_d1jis"]
+[ext_resource type="Texture2D" uid="uid://udvlj523wvwi" path="res://src/Texturas/Archivos/Suelo.jpg" id="1_l2u2d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ll6f"]
+albedo_texture = ExtResource("1_l2u2d")
+
+[sub_resource type="BoxMesh" id="BoxMesh_7dm0k"]
+size = Vector3(40, 1, 20)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_d1jis"]
+points = PackedVector3Array(20.3095, 1.0873, 10.6349, -20.3095, -0.81746, -10.3175, -20.3095, 1.0873, -10.3175, 20.3095, -0.81746, -10.3175, -20.3095, -0.81746, 10.6349, -20.3095, 1.0873, 10.6349, 20.3095, 1.0873, -10.3175, 20.3095, -0.81746, 10.6349)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d1jis"]
+
+[sub_resource type="Sky" id="Sky_l2u2d"]
+sky_material = SubResource("ProceduralSkyMaterial_d1jis")
+
+[sub_resource type="Environment" id="Environment_8ll6f"]
+background_mode = 2
+sky = SubResource("Sky_l2u2d")
+
+[sub_resource type="BoxMesh" id="BoxMesh_l2u2d"]
+size = Vector3(10, 1, 20)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8ll6f"]
+points = PackedVector3Array(-5.15873, -0.65873, -10.1548, 5.31746, 0.611111, 10.1548, 5.31746, -0.65873, 10.1548, 5.31746, 0.611111, -10.1548, -5.15873, 0.611111, 10.1548, -5.15873, -0.65873, 10.1548, 5.31746, -0.65873, -10.1548, -5.15873, 0.611111, -10.1548)
+
+[node name="Main" type="Node3D"]
+
+[node name="Suelo" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_8ll6f")
+mesh = SubResource("BoxMesh_7dm0k")
+
+[node name="Cuadrado (Forma)" type="StaticBody3D" parent="Suelo"]
+
+[node name="Colision" type="CollisionShape3D" parent="Suelo/Cuadrado (Forma)"]
+shape = SubResource("ConvexPolygonShape3D_d1jis")
+
+[node name="Player" parent="." instance=ExtResource("1_d1jis")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.357693, 2.48083, 0.0368891)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.00239109, 0, 0.999997, 0, 1, 0, -0.999997, 0, -0.00239109, 6.51391, 2.20047, 0.485251)
+fov = 143.438
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8ll6f")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.965016, 0.0178875, -0.261581, 0.260586, 0.0448175, 0.96441, 0.0289743, -0.998835, 0.0385884, -3.46694, 17.2789, -0.682465)
+
+[node name="Pared" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 19.5388, 5.41986, 0)
+mesh = SubResource("BoxMesh_l2u2d")
+
+[node name="Cuadrado (Forma)" type="StaticBody3D" parent="Pared"]
+
+[node name="Colision" type="CollisionShape3D" parent="Pared/Cuadrado (Forma)"]
+shape = SubResource("ConvexPolygonShape3D_8ll6f")
+
+[node name="Pared2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -19.5476, 5.41986, 0)
+mesh = SubResource("BoxMesh_l2u2d")
+
+[node name="Cuadrado (Forma)" type="StaticBody3D" parent="Pared2"]
+
+[node name="Colision" type="CollisionShape3D" parent="Pared2/Cuadrado (Forma)"]
+shape = SubResource("ConvexPolygonShape3D_8ll6f")
